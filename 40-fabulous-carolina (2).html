@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>40 & Fabulous · Carolina · 19.09.26</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --terra-deep: #6B3522; --terra-mid: #9B5B3A; --terra-warm: #C4825A;
+    --terra-light: #E8C4A0; --terra-sand: #F2DEC8; --gold: #D4A050;
+    --gold-light: #E8C070; --cream: #FAF4EC; --text-dark: #3A1F0E;
+    --text-mid: #7A4A2A; --text-soft: #A07050;
+  }
+  body { background:#C4825A; font-family:'Cormorant Garamond',Georgia,serif; min-height:100vh; display:flex; align-items:flex-start; justify-content:center; padding:0; }
+  .app { width:100%; max-width:480px; background:var(--cream); min-height:100vh; overflow:hidden; margin:0 auto; }
+
+  .hero { position:relative; background:linear-gradient(160deg,#9B5B3A 0%,#6B3522 45%,#8B4A30 100%); padding:3rem 2rem 2.5rem; text-align:center; overflow:hidden; }
+  .hero-save { font-family:'Cinzel Decorative',serif; font-size:10px; letter-spacing:4px; color:var(--terra-light); text-transform:uppercase; margin-bottom:1.5rem; opacity:.85; }
+  .hero-glass { background:rgba(250,244,236,.10); border:1px solid rgba(212,160,80,.22); border-radius:2px; padding:2rem 1.5rem 1.75rem; backdrop-filter:blur(4px); margin-bottom:1.5rem; }
+  .hero-num { font-family:'Cinzel Decorative',serif; font-size:56px; font-weight:700; color:var(--gold-light); line-height:1; letter-spacing:2px; }
+  .hero-amp { font-family:'Cormorant Garamond',serif; font-size:32px; font-style:italic; color:var(--terra-light); line-height:1.2; display:block; }
+  .hero-fab { font-family:'Cinzel Decorative',serif; font-size:22px; font-weight:400; color:var(--gold-light); letter-spacing:1px; line-height:1.3; }
+  .hero-date { font-family:'Cinzel Decorative',serif; font-size:20px; color:var(--gold); letter-spacing:3px; margin-top:1.25rem; }
+  .hero-name { font-family:'Cormorant Garamond',serif; font-size:13px; font-style:italic; color:var(--terra-light); margin-top:8px; letter-spacing:1px; }
+  .hero-loc { font-family:'Cinzel',serif; font-size:9px; letter-spacing:3px; color:rgba(232,196,160,.7); text-transform:uppercase; margin-top:14px; }
+  .deco-line { display:flex; align-items:center; gap:8px; justify-content:center; margin-top:1.25rem; opacity:.5; }
+  .deco-line span { width:40px; height:.5px; background:var(--gold); }
+
+  .nav { display:flex; background:var(--cream); border-bottom:1px solid rgba(155,91,58,.12); position:sticky; top:0; z-index:10; overflow-x:auto; }
+  .nav-btn { flex:1; min-width:60px; padding:12px 4px; font-family:'Cinzel',serif; font-size:8.5px; letter-spacing:1px; text-transform:uppercase; color:var(--text-soft); background:none; border:none; border-bottom:2px solid transparent; cursor:pointer; white-space:nowrap; }
+  .nav-btn.active { color:var(--terra-deep); border-bottom-color:var(--gold); font-weight:700; }
+
+  .section { display:none; padding:1.75rem 1.5rem; }
+  .section.active { display:block; }
+  .sec-eyebrow { font-family:'Cinzel',serif; font-size:9px; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:1.5rem; display:flex; align-items:center; gap:10px; }
+  .sec-eyebrow::after { content:''; flex:1; height:.5px; background:var(--terra-light); }
+
+  .day-header { font-family:'Cinzel Decorative',serif; font-size:11px; color:var(--terra-deep); letter-spacing:1px; margin:1.5rem 0 1rem; padding-bottom:6px; border-bottom:.5px solid var(--terra-light); }
+  .day-sub { font-family:'Cormorant Garamond',serif; font-size:13px; font-style:italic; color:var(--text-soft); margin-top:3px; font-weight:300; }
+  .day-badge { display:inline-block; font-family:'Cinzel',serif; font-size:8px; letter-spacing:1.5px; text-transform:uppercase; background:var(--terra-sand); color:var(--terra-mid); padding:3px 10px; border-radius:20px; margin-top:6px; }
+
+  .tl-item { display:flex; gap:0; }
+  .tl-left { display:flex; flex-direction:column; align-items:center; width:52px; flex-shrink:0; }
+  .tl-time { font-family:'Cinzel',serif; font-size:11px; color:var(--terra-mid); font-weight:500; margin-bottom:8px; white-space:nowrap; }
+  .tl-dot { width:10px; height:10px; border-radius:50%; background:var(--gold); border:2px solid var(--cream); box-shadow:0 0 0 1px var(--gold); flex-shrink:0; z-index:1; }
+  .tl-line { width:1px; background:var(--terra-light); flex:1; min-height:24px; }
+  .tl-body { flex:1; padding:0 0 1.75rem 14px; }
+  .tl-name { font-family:'Cinzel Decorative',serif; font-size:13px; font-weight:400; color:var(--terra-deep); line-height:1.35; margin-bottom:8px; }
+  .tl-place { display:inline-flex; align-items:center; gap:5px; font-family:'Cinzel',serif; font-size:9px; letter-spacing:1px; color:var(--terra-mid); background:var(--terra-sand); padding:4px 10px; border-radius:20px; margin-bottom:10px; text-transform:uppercase; }
+  .tl-desc { font-family:'Cormorant Garamond',serif; font-size:15px; color:var(--text-mid); line-height:1.7; font-style:italic; }
+  .tl-tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; }
+  .tag { font-family:'Cinzel',serif; font-size:8px; letter-spacing:1px; text-transform:uppercase; padding:4px 10px; border-radius:20px; border:.5px solid var(--terra-light); color:var(--terra-mid); }
+  .tag-gold { background:var(--terra-sand); border-color:var(--gold-light); color:var(--terra-deep); }
+
+  .vibe-card { margin-top:1.5rem; background:linear-gradient(135deg,var(--terra-sand) 0%,#F5E8D5 100%); border-radius:2px; border-left:3px solid var(--gold); padding:14px 16px; }
+  .vibe-label { font-family:'Cinzel',serif; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:6px; }
+  .vibe-text { font-family:'Cormorant Garamond',serif; font-size:15px; font-style:italic; color:var(--text-mid); line-height:1.65; }
+
+  .card { background:white; border-radius:2px; border:.5px solid var(--terra-light); padding:16px 18px; margin-bottom:12px; }
+  .card-title { font-family:'Cinzel',serif; font-size:11px; letter-spacing:1px; text-transform:uppercase; color:var(--terra-deep); margin-bottom:6px; }
+  .card-meta { font-family:'Cormorant Garamond',serif; font-size:15px; color:var(--text-mid); line-height:1.65; font-style:italic; }
+  .card-link { display:inline-flex; align-items:center; gap:5px; margin-top:10px; font-family:'Cinzel',serif; font-size:8.5px; letter-spacing:1px; text-transform:uppercase; color:var(--terra-deep); text-decoration:none; background:var(--terra-sand); padding:5px 12px; border-radius:20px; }
+  .card-link:hover { background:var(--terra-light); }
+
+  .passeio-row { display:flex; gap:14px; align-items:flex-start; margin-bottom:16px; }
+  .passeio-icon { width:34px; height:34px; border-radius:2px; background:var(--terra-sand); display:flex; align-items:center; justify-content:center; flex-shrink:0; border:.5px solid var(--terra-light); }
+  .passeio-name { font-family:'Cinzel',serif; font-size:11px; letter-spacing:1px; text-transform:uppercase; color:var(--terra-deep); margin-bottom:4px; }
+  .passeio-desc { font-family:'Cormorant Garamond',serif; font-size:14px; font-style:italic; color:var(--text-soft); line-height:1.55; }
+  .passeio-link { display:inline-flex; align-items:center; gap:4px; margin-top:7px; font-family:'Cinzel',serif; font-size:8px; letter-spacing:1px; text-transform:uppercase; color:var(--terra-mid); text-decoration:none; }
+
+  .gift-heart { text-align:center; margin-bottom:1.5rem; }
+  .gift-text { font-family:'Cormorant Garamond',serif; font-size:16px; font-style:italic; color:var(--text-mid); line-height:1.75; margin-bottom:1rem; }
+  .gift-cause { background:linear-gradient(135deg,var(--terra-sand),#F5E8D5); border-radius:2px; border-left:3px solid var(--gold); padding:16px 18px; margin-top:1rem; }
+  .gift-cause-title { font-family:'Cinzel',serif; font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:8px; }
+  .gift-cause-text { font-family:'Cormorant Garamond',serif; font-size:15px; font-style:italic; color:var(--text-mid); line-height:1.7; }
+  .gift-btn { display:flex; align-items:center; justify-content:center; gap:8px; margin-top:1.25rem; padding:13px; background:var(--terra-deep); color:var(--gold-light); border:none; border-radius:2px; font-family:'Cinzel',serif; font-size:9.5px; letter-spacing:2.5px; text-transform:uppercase; cursor:pointer; text-decoration:none; width:100%; }
+  .gift-btn:hover { background:var(--terra-mid); }
+  .gift-news { display:inline-flex; align-items:center; gap:5px; margin-top:10px; font-family:'Cinzel',serif; font-size:8px; letter-spacing:1px; text-transform:uppercase; color:var(--terra-mid); text-decoration:none; }
+
+  .rsvp-note { font-family:'Cormorant Garamond',serif; font-size:16px; font-style:italic; color:var(--text-mid); line-height:1.7; margin-bottom:1.25rem; }
+  .rsvp-note strong { font-style:normal; color:var(--terra-deep); font-weight:500; }
+  .rsvp-form input, .rsvp-form select { width:100%; margin-bottom:10px; padding:11px 14px; font-family:'Cormorant Garamond',serif; font-size:15px; font-style:italic; color:var(--text-dark); border:.5px solid var(--terra-light); border-radius:2px; background:white; outline:none; }
+  .rsvp-form input:focus, .rsvp-form select:focus { border-color:var(--gold); }
+  .rsvp-btn { width:100%; padding:13px; background:var(--terra-deep); color:var(--gold-light); border:none; border-radius:2px; font-family:'Cinzel',serif; font-size:10px; letter-spacing:3px; text-transform:uppercase; cursor:pointer; margin-top:4px; }
+  .rsvp-btn:hover { background:var(--terra-mid); }
+  .success-msg { display:none; text-align:center; padding:2rem 1rem; background:var(--terra-sand); border-radius:2px; }
+  .success-msg .s-title { font-family:'Cinzel Decorative',serif; font-size:14px; color:var(--terra-deep); margin-top:12px; }
+  .success-msg p { font-family:'Cormorant Garamond',serif; font-size:15px; font-style:italic; color:var(--text-mid); margin-top:6px; line-height:1.6; }
+
+  .app-footer { text-align:center; padding:1.25rem 1rem; border-top:.5px solid var(--terra-light); }
+  .footer-text { font-family:'Cinzel',serif; font-size:8px; letter-spacing:2px; text-transform:uppercase; color:var(--text-soft); }
+  .info-note { font-family:'Cormorant Garamond',serif; font-size:13px; font-style:italic; color:var(--text-soft); line-height:1.6; }
+  .airport-card { background:white; border:.5px solid var(--terra-light); border-radius:2px; padding:14px 16px; margin-top:12px; display:flex; gap:12px; align-items:flex-start; }
+  .airport-icon { width:30px; height:30px; background:var(--terra-sand); border-radius:2px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .airport-name { font-family:'Cinzel',serif; font-size:10px; letter-spacing:1px; text-transform:uppercase; color:var(--terra-deep); margin-bottom:3px; }
+  .airport-meta { font-family:'Cormorant Garamond',serif; font-size:13px; font-style:italic; color:var(--text-soft); }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="hero">
+    <div class="hero-save">Save the Date</div>
+    <div class="hero-glass">
+      <div class="hero-num">40</div>
+      <div class="hero-amp">&amp;</div>
+      <div class="hero-fab">Fabulous</div>
+      <div class="hero-date">19 · 09 · 26</div>
+    </div>
+    <div class="hero-name">Uma celebração com Carolina</div>
+    <div class="deco-line"><span></span><svg width="12" height="12" viewBox="0 0 12 12" fill="#D4A050"><circle cx="6" cy="6" r="2"/></svg><span></span></div>
+    <div class="hero-loc">Vinícola Madre Terra · Flores da Cunha · RS</div>
+  </div>
+
+  <nav class="nav">
+    <button class="nav-btn active" data-tab="prog" onclick="switchTab('prog')">Programação</button>
+    <button class="nav-btn" data-tab="hosp" onclick="switchTab('hosp')">Hospedagem</button>
+    <button class="nav-btn" data-tab="pass" onclick="switchTab('pass')">Passeios</button>
+    <button class="nav-btn" data-tab="gift" onclick="switchTab('gift')">Presentes</button>
+    <button class="nav-btn" data-tab="rsvp" onclick="switchTab('rsvp')">Presença</button>
+  </nav>
+
+  <!-- PROGRAMAÇÃO -->
+  <div class="section active" id="tab-prog">
+    <div class="sec-eyebrow">Programação</div>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;color:var(--text-soft);line-height:1.65;margin-bottom:1rem">Fiquem à vontade para nos acompanhar ♡</p>
+
+    <div class="day-header">
+      Sexta · 18 de Setembro
+      <div class="day-sub">Chegada &amp; Encontro</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-left">
+        <div class="tl-time">18h30</div>
+        <div class="tl-dot"></div>
+      </div>
+      <div class="tl-body" style="padding-bottom:0">
+        <div class="tl-name">Jantar na Casa Eva</div>
+        <div class="tl-place">
+          <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="5" r="2"/><path d="M6 1C3.8 1 2 2.8 2 5.1 2 7.9 6 11 6 11s4-3.1 4-5.9C10 2.8 8.2 1 6 1z"/></svg>
+          Casa Eva
+        </div>
+        <div class="tl-desc">Para quem já estiver na região, vamos nos encontrar para um <em>happy hour</em> com degustação em uma vinícola de tradição feminina na serra, a Casa Eva.</div>
+        <div class="tl-tags">
+          <span class="tag tag-gold">Happy Hour</span>
+          <span class="tag tag-gold">Degustação</span>
+          <span class="tag tag-gold">Opcional</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-header">
+      Sábado · 19 de Setembro
+      <div class="day-sub">Vinícola Madre Terra</div>
+      <div class="day-badge">Mandatório · Por nossa conta!</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-left">
+        <div class="tl-time">10h30</div>
+        <div class="tl-dot"></div>
+        <div class="tl-line"></div>
+      </div>
+      <div class="tl-body">
+        <div class="tl-name">Winefulness</div>
+        <div class="tl-place">
+          <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="5" r="2"/><path d="M6 1C3.8 1 2 2.8 2 5.1 2 7.9 6 11 6 11s4-3.1 4-5.9C10 2.8 8.2 1 6 1z"/></svg>
+          Vinícola Madre Terra
+        </div>
+        <div class="tl-desc">Para iniciar o dia especial, uma experiência de meditação e brunch na Madre Terra. Por meio de vinhos, óleos essenciais, alinhamento dos chakras, respiração, yoga, tai chi chuan e reiki — uma jornada de bem-estar físico, mental, emocional e energético.</div>
+        <div class="tl-tags">
+          <span class="tag tag-gold">Meditação</span>
+          <span class="tag tag-gold">Yoga</span>
+          <span class="tag tag-gold">Reiki</span>
+          <span class="tag tag-gold">Brunch</span>
+          <span class="tag tag-gold">Tai Chi</span>
+        </div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-left">
+        <div class="tl-time">17h00</div>
+        <div class="tl-dot"></div>
+      </div>
+      <div class="tl-body" style="padding-bottom:0">
+        <div class="tl-name">É hora da festa!</div>
+        <div class="tl-place">
+          <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="5" r="2"/><path d="M6 1C3.8 1 2 2.8 2 5.1 2 7.9 6 11 6 11s4-3.1 4-5.9C10 2.8 8.2 1 6 1z"/></svg>
+          Espaço Cozinha Ayma
+        </div>
+        <div class="tl-desc">A celebração começa — Carolina nos espera no Espaço Cozinha Ayma para a festa dos 40 &amp; Fabulous. Vinhos, música, boa companhia e muita alegria.</div>
+        <div class="tl-tags">
+          <span class="tag tag-gold">Festa</span>
+          <span class="tag tag-gold">Vinhos</span>
+          <span class="tag tag-gold">Música</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-header">
+      Domingo · 20 de Setembro
+      <div class="day-sub" style="font-style:italic;color:var(--gold)">Será que estaremos vivos? 😄</div>
+    </div>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;color:var(--text-soft);line-height:1.65">Sugestões de passeio disponíveis na aba <strong style="font-style:normal;color:var(--terra-mid)">Passeios</strong> para curtir a Serra antes de voltar.</p>
+
+    <div class="vibe-card" style="margin-top:1.5rem">
+      <div class="vibe-label">Vibe da Noite</div>
+      <div class="vibe-text">Sem dress code obrigatório — mas a inspiração é <em>70s Bohemian in Italy</em>. Pense em linho, florais, tons terrosos e um toque de ouro.</div>
+    </div>
+  </div>
+
+  <!-- HOSPEDAGEM -->
+  <div class="section" id="tab-hosp">
+    <div class="sec-eyebrow">Onde Ficar</div>
+    <p class="info-note" style="margin-bottom:1.25rem;margin-top:-4px">Todas as opções ficam de 8 a 10 minutos do local da festa.</p>
+
+    <div class="card">
+      <div class="card-title">Letto Hotéis</div>
+      <div class="card-meta">Flores da Cunha, RS</div>
+      <a href="https://www.lettohotelfloresdacunha.com.br/" target="_blank" class="card-link">
+        <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 1h4v4M11 1L5 7M4 2H2a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V8"/></svg>
+        Ver site
+      </a>
+    </div>
+    <div class="card">
+      <div class="card-title">Hotel Fiorio</div>
+      <div class="card-meta">Flores da Cunha, RS</div>
+      <a href="https://www.booking.com/hotel/br/fiorio-flores-da-cunha.pt-br.html" target="_blank" class="card-link">
+        <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 1h4v4M11 1L5 7M4 2H2a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V8"/></svg>
+        Ver no Booking
+      </a>
+    </div>
+    <div class="card">
+      <div class="card-title">Pousada A Estalagem Hospedaria</div>
+      <div class="card-meta">Flores da Cunha, RS</div>
+      <a href="https://www.booking.com/hotel/br/a-estalagem-flores-da-cunha.pt-br.html" target="_blank" class="card-link">
+        <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 1h4v4M11 1L5 7M4 2H2a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V8"/></svg>
+        Ver no Booking
+      </a>
+    </div>
+
+    <div class="sec-eyebrow" style="margin-top:1.75rem">Como Chegar</div>
+    <div class="airport-card">
+      <div class="airport-icon">
+        <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="#9B5B3A" stroke-width="1.4"><path d="M3 13l3-2 2 3 5-6 1 2 4-6"/></svg>
+      </div>
+      <div>
+        <div class="airport-name">Caxias do Sul</div>
+        <div class="airport-meta">34 min · 22,9 km — aeroporto mais próximo</div>
+      </div>
+    </div>
+    <div class="airport-card">
+      <div class="airport-icon">
+        <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="#9B5B3A" stroke-width="1.4"><path d="M3 13l3-2 2 3 5-6 1 2 4-6"/></svg>
+      </div>
+      <div>
+        <div class="airport-name">Porto Alegre</div>
+        <div class="airport-meta">2h10 · 138 km — maior oferta de voos</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASSEIOS -->
+  <div class="section" id="tab-pass">
+    <div class="sec-eyebrow">Explore a Região</div>
+    <p class="info-note" style="margin-bottom:1.25rem;margin-top:-4px">Sugestões para quem quiser conhecer a região no sábado antes da festa.</p>
+
+    <div class="passeio-row">
+      <div class="passeio-icon">
+        <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="#9B5B3A" stroke-width="1.4"><path d="M4 16V8l3-5 3 5 3-5 3 5v8"/></svg>
+      </div>
+      <div>
+        <div class="passeio-name">Vinícola Bebber</div>
+        <div class="passeio-desc">Degustação conceito com menu de 6 passos — experiência completa e sofisticada.</div>
+        <a href="https://www.wine-locals.com/passeios/degustacao-conceito-e-menu-6-passos-na-vinicola-bebber" target="_blank" class="passeio-link">
+          <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 1h4v4M11 1L5 7M4 2H2a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V8"/></svg>
+          Reservar passeio
+        </a>
+      </div>
+    </div>
+    <div class="passeio-row">
+      <div class="passeio-icon">
+        <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="#9B5B3A" stroke-width="1.4"><circle cx="10" cy="7" r="4"/><path d="M6 17c0-2.2 1.8-4 4-4s4 1.8 4 4"/></svg>
+      </div>
+      <div>
+        <div class="passeio-name">Vinícola Luiz Argenta</div>
+        <div class="passeio-desc">Degustação de vinhos — rótulos premiados em ambiente elegante.</div>
+        <a href="https://enoturismo.luizargenta.com.br/passeio/degustacao-colecoes" target="_blank" class="passeio-link">
+          <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 1h4v4M11 1L5 7M4 2H2a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V8"/></svg>
+          Reservar passeio
+        </a>
+      </div>
+    </div>
+    <div class="passeio-row">
+      <div class="passeio-icon">
+        <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="#9B5B3A" stroke-width="1.4"><path d="M10 3L3 17h14L10 3z"/></svg>
+      </div>
+      <div>
+        <div class="passeio-name">Vinícola Salvattore</div>
+        <div class="passeio-desc">Enoturismo com estrutura completa na Serra Gaúcha.</div>
+        <a href="https://vinicolasalvattore.com.br/turismo" target="_blank" class="passeio-link">
+          <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 1h4v4M11 1L5 7M4 2H2a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V8"/></svg>
+          Ver opções
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRESENTES -->
+  <div class="section" id="tab-gift">
+    <div class="sec-eyebrow">Presentes</div>
+    <div class="gift-heart">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#D4A050" stroke-width="1.2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    </div>
+    <p class="gift-text">Por mais clichê que soe, é verdade: a sua presença é o maior presente. Poder celebrar com amigos e família é a minha maior alegria.</p>
+    <p class="gift-text">Sei de todos os custos financeiros que você irá dispensar para estar comigo nesse dia, por isso, a presença é o bem mais valioso.</p>
+    <p class="gift-text">Se realmente fizer questão, estou organizando uma vaquinha para ajudar a Cléria, conhecida da minha sogra Laci, que tem enfrentado dificuldades para conseguir uma cadeira de rodas nova para sua filha, Daniele, que possui paralisia cerebral.</p>
+    <div class="gift-cause">
+      <div class="gift-cause-title">A causa</div>
+      <div class="gift-cause-text">Daniele Dietrich da Silva nasceu com paralisia cerebral e precisa de uma cadeira de rodas elétrica. Sua família busca apoio para garantir mais autonomia e qualidade de vida para ela.</div>
+      <a href="https://www.facebook.com/jornalnh/videos/a-fam%C3%ADlia-da-paciente-daniele-dietrich-da-silva-que-nasceu-com-paralisia-cerebra/2052880398960270/" target="_blank" class="gift-news" style="margin-top:12px">
+        <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 1h4v4M11 1L5 7M4 2H2a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V8"/></svg>
+        Ver reportagem
+      </a>
+    </div>
+    <a href="https://www.vakinha.com.br/vaquinha/cadeira-de-rodas-eletrica-carolina-cauduro" target="_blank" class="gift-btn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      Contribuir na Vakinha
+    </a>
+  </div>
+
+  <!-- RSVP -->
+  <div class="section" id="tab-rsvp">
+    <div class="sec-eyebrow">Confirme sua Presença</div>
+    <p class="rsvp-note">Confirme até <strong>5 de setembro de 2026</strong> para garantirmos tudo com carinho para você.</p>
+    <div class="rsvp-form" id="rsvp-form">
+      <input type="text" id="rsvp-name" placeholder="Seu nome completo">
+      <select id="rsvp-part">
+        <option value="">Vai participar de qual parte?</option>
+        <option value="tudo">Sexta + Winefulness + Festa (tudo!)</option>
+        <option value="sabado">Winefulness + Festa (sábado)</option>
+        <option value="winefulness">Só o Winefulness (manhã)</option>
+        <option value="festa">Só a Festa (17h em diante)</option>
+        <option value="sexta">Só o jantar de sexta</option>
+      </select>
+      <select id="rsvp-confirm">
+        <option value="">Confirmação</option>
+        <option value="sim">Sim, estarei lá!</option>
+        <option value="nao">Infelizmente não poderei ir</option>
+      </select>
+      <select id="rsvp-guests">
+        <option value="">Número de acompanhantes</option>
+        <option value="0">Virei sozinho(a)</option>
+        <option value="1">+ 1 acompanhante</option>
+        <option value="2">+ 2 acompanhantes</option>
+        <option value="3">+ 3 ou mais</option>
+      </select>
+      <input type="text" id="rsvp-restrict" placeholder="Restrição alimentar? (opcional)">
+      <button class="rsvp-btn" onclick="submitRSVP()">Confirmar Presença</button>
+    </div>
+    <div class="success-msg" id="success-msg">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#9B5B3A" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-5"/></svg>
+      <div class="s-title">Presença Confirmada!</div>
+      <p>Carolina e equipe foram notificados.<br>Até setembro na Serra Gaúcha!</p>
+    </div>
+  </div>
+
+  <div class="app-footer">
+    <div class="footer-text">Com amor · Vinícola Madre Terra · Flores da Cunha · RS</div>
+  </div>
+</div>
+
+<script>
+function switchTab(tab){
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelector('[data-tab="'+tab+'"]').classList.add('active');
+  document.getElementById('tab-'+tab).classList.add('active');
+}
+async function submitRSVP(){
+  const name     = document.getElementById('rsvp-name').value.trim();
+  const conf     = document.getElementById('rsvp-confirm').value;
+  const part     = document.getElementById('rsvp-part').value;
+  const guests   = document.getElementById('rsvp-guests').value;
+  const restrict = document.getElementById('rsvp-restrict').value;
+
+  if(!name || !conf){
+    alert('Por favor preencha seu nome e confirmação.');
+    return;
+  }
+
+  const btn = document.querySelector('.rsvp-btn');
+  btn.textContent = 'Enviando...';
+  btn.disabled = true;
+
+  try {
+    const res = await fetch('https://formspree.io/f/xzdleokd', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        nome:           name,
+        confirmacao:    conf === 'sim' ? 'Sim, estarei lá!' : 'Não poderá ir',
+        participacao:   part   || 'Não informado',
+        acompanhantes:  guests || 'Não informado',
+        restricao:      restrict || 'Nenhuma'
+      })
+    });
+
+    if(res.ok){
+      document.getElementById('rsvp-form').style.display = 'none';
+      document.getElementById('success-msg').style.display = 'block';
+    } else {
+      btn.textContent = 'Confirmar Presença';
+      btn.disabled = false;
+      alert('Ops, algo deu errado. Tente novamente.');
+    }
+  } catch(e){
+    btn.textContent = 'Confirmar Presença';
+    btn.disabled = false;
+    alert('Erro de conexão. Verifique sua internet e tente novamente.');
+  }
+}
+</script>
+</body>
+</html>
